@@ -5,7 +5,7 @@ echo "Building Contact Manager for production..."
 
 # Install frontend dependencies
 echo "Installing frontend dependencies..."
-npm install
+npm install --legacy-peer-deps
 
 # Build frontend
 echo "Building React frontend..."

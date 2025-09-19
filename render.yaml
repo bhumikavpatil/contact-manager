@@ -1,17 +1,14 @@
 services:
   - type: web
     name: contact-manager
-    env: python
+    env: docker
     plan: free
-    buildCommand: chmod +x build.sh && ./build.sh
-    startCommand: python start_prod.py
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: FLASK_ENV
         value: production
       - key: DATABASE_URL
-        fromDatabase:
-          name: contactmanager
-          property: connectionString
+        value: postgresql://neondb_owner:npg_V1eop0wBHikJ@ep-plain-brook-ad4wvfvy-pooler.c-2.us-east-1.aws.neon.tech/contactmanager?sslmode=require&channel_binding=require
       - key: SECRET_KEY
         generateValue: true
       - key: JWT_SECRET_KEY
