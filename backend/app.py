@@ -26,7 +26,13 @@ def create_app():
     # Extensions
     # Get the correct config for CORS
     current_config = ProductionConfig if os.getenv("FLASK_ENV") == "production" else Config
-    CORS(app, resources={r"/api/*": {"origins": current_config.ALLOW_ORIGINS.split(",")}}, supports_credentials=True)
+    
+    # Configure CORS to allow all origins in production
+    if os.getenv("FLASK_ENV") == "production":
+        CORS(app, resources={r"/*": {"origins": "*"}}, supports_credentials=True)
+    else:
+        CORS(app, resources={r"/api/*": {"origins": current_config.ALLOW_ORIGINS.split(",")}}, supports_credentials=True)
+    
     JWTManager(app)
     db.init_app(app)
 

@@ -11,7 +11,7 @@ class ProductionConfig:
     SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-change-this-in-production")
     JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "your-jwt-secret-key-change-this-in-production")
     
-    # CORS Configuration - Allow all origins in production for now
+    # CORS Configuration - Allow all origins in production
     ALLOW_ORIGINS = os.getenv("ALLOW_ORIGINS", "*")
     
     # Server Configuration

@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect } from "react"
 import { useAuth } from "./AuthContext"
+import API_ENDPOINTS from "../config/api"
 
 const ContactContext = createContext()
 
@@ -31,7 +32,7 @@ export const ContactProvider = ({ children }) => {
   const loadContacts = async () => {
     try {
       const token = localStorage.getItem('contactManager_token')
-      const response = await fetch('http://localhost:5000/api/contacts', {
+      const response = await fetch(API_ENDPOINTS.CONTACTS.LIST, {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -60,7 +61,7 @@ export const ContactProvider = ({ children }) => {
       console.log('Creating contact:', contactData)
       console.log('Using token:', token.substring(0, 20) + '...')
 
-      const response = await fetch('http://localhost:5000/api/contacts', {
+      const response = await fetch(API_ENDPOINTS.CONTACTS.CREATE, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -91,7 +92,7 @@ export const ContactProvider = ({ children }) => {
   const updateContact = async (id, contactData) => {
     try {
       const token = localStorage.getItem('contactManager_token')
-      const response = await fetch(`http://localhost:5000/api/contacts/${id}`, {
+      const response = await fetch(API_ENDPOINTS.CONTACTS.UPDATE(id), {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -117,7 +118,7 @@ export const ContactProvider = ({ children }) => {
   const deleteContact = async (id) => {
     try {
       const token = localStorage.getItem('contactManager_token')
-      const response = await fetch(`http://localhost:5000/api/contacts/${id}`, {
+      const response = await fetch(API_ENDPOINTS.CONTACTS.DELETE(id), {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -139,7 +140,7 @@ export const ContactProvider = ({ children }) => {
   const toggleFavorite = async (id) => {
     try {
       const token = localStorage.getItem('contactManager_token')
-      const response = await fetch(`http://localhost:5000/api/contacts/${id}/toggle-favorite`, {
+      const response = await fetch(API_ENDPOINTS.CONTACTS.TOGGLE_FAVORITE(id), {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
