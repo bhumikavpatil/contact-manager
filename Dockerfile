@@ -44,14 +44,11 @@ ENV FLASK_APP=backend/app.py
 ENV FLASK_ENV=production
 ENV PYTHONPATH=/app
 
+# Set the working directory to backend
+WORKDIR /app/backend
+
 # Expose port
 EXPOSE 10000
 
-# Create a startup script
-RUN echo '#!/bin/bash\n\
-cd /app\n\
-python backend/app.py --init-db\n\
-python start_prod.py' > /app/start.sh && chmod +x /app/start.sh
-
 # Start the application
-CMD ["/app/start.sh"]
+CMD ["python", "app.py"]
